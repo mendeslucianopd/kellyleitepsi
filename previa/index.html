@@ -108,6 +108,29 @@ p{margin:0;}
 .nav.solid{background:rgba(242,235,227,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); box-shadow:0 1px 0 var(--line);}
 .nav.solid .logo,.nav.solid .links{color:var(--ink);}
 
+/* Menu no celular */
+.burger{display:none; flex:none; position:relative; width:44px; height:44px; border:0; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; cursor:pointer; transition:background .4s, color .4s;}
+.burger span{position:absolute; left:14px; right:14px; height:1.6px; border-radius:2px; background:currentColor; transition:transform .45s var(--ease), top .45s var(--ease);}
+.burger span:first-child{top:18px;} .burger span:last-child{top:25px;}
+.nav.solid .burger{background:rgba(35,26,20,.07); color:var(--ink);}
+.mmenu{position:fixed; inset:0; z-index:55; display:flex; flex-direction:column; background:var(--bg); padding:calc(108px + env(safe-area-inset-top,0px)) 24px calc(28px + env(safe-area-inset-bottom,0px)); opacity:0; visibility:hidden; transition:opacity .4s var(--ease), visibility .4s;}
+.mmenu .ml{display:flex; align-items:center; justify-content:space-between; font-family:var(--serif); font-size:clamp(30px,9vw,40px); font-weight:500; letter-spacing:-.04em; line-height:1.1; color:var(--ink); padding:14px 0; border-bottom:1px solid var(--line); opacity:0; transform:translateY(14px); transition:opacity .5s var(--ease), transform .6s var(--ease);}
+.mmenu .ml::after{content:"→"; font-family:var(--sans); font-size:20px; color:var(--muted);}
+.mmenu .m-foot{margin-top:auto; display:grid; gap:14px; opacity:0; transform:translateY(14px); transition:opacity .5s var(--ease) .3s, transform .6s var(--ease) .3s;}
+.mmenu .m-foot .btn{justify-content:center; padding:16px 22px; font-size:16px;}
+.mmenu .m-foot p{margin:0; font-size:13px; color:var(--muted); text-align:center;}
+html.menu-open{overflow:hidden;} html.menu-open .flag{opacity:0; pointer-events:none;}
+html.menu-open .mmenu{opacity:1; visibility:visible;}
+html.menu-open .mmenu .ml,html.menu-open .mmenu .m-foot{opacity:1; transform:none;}
+html.menu-open .mmenu .ml:nth-child(2){transition-delay:.06s;} html.menu-open .mmenu .ml:nth-child(3){transition-delay:.12s;} html.menu-open .mmenu .ml:nth-child(4){transition-delay:.18s;} html.menu-open .mmenu .ml:nth-child(5){transition-delay:.24s;}
+html.menu-open .nav{background:transparent; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none;}
+html.menu-open .nav .logo{color:var(--ink);}
+html.menu-open .burger{background:rgba(35,26,20,.07); color:var(--ink);}
+html.menu-open .burger span:first-child{top:21.5px; transform:rotate(45deg);} html.menu-open .burger span:last-child{top:21.5px; transform:rotate(-45deg);}
+html.menu-open .nav-in > .btn{opacity:0; pointer-events:none;}
+.nav-in > .btn{transition:opacity .3s;}
+@media (min-width:981px){.mmenu{display:none;}}
+
 /* Hero */
 .hero{position:relative; height:max(640px, min(100svh, 940px)); overflow:hidden; color:#fff; background:#2a2a2a;}
 .hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 30%; transform:scale(1.08); transition:transform 2.6s var(--ease);}
@@ -256,6 +279,8 @@ footer{margin-top:clamp(80px,9vw,130px); background:var(--card); border-top:1px 
 
 @media (max-width:980px){
   .links{display:none;}
+  .burger{display:block;}
+  .nav-in{justify-content:flex-start; gap:10px;} .nav-in > .btn{margin-left:auto;}
   .hero-in{bottom:264px;}
   .hq{top:auto; bottom:44px; display:flex; align-items:center; gap:12px; overflow-x:auto; padding:18px calc(11% + 6px); scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none; pointer-events:auto; -webkit-overflow-scrolling:touch;}
   .hq::-webkit-scrollbar{display:none;}
@@ -313,8 +338,13 @@ html.intro .nav{opacity:0;}
     </a>
     <nav class="links" aria-label="Seções"><a href="#sobre">Sobre</a><a href="#temas">Atendimento</a><a href="#depoimentos">Depoimentos</a><a href="#porque">Como funciona</a></nav>
     <a class="btn" href="#agendar">Quero agendar</a>
+    <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
   </div>
 </header>
+<div class="mmenu" id="mmenu" aria-hidden="true">
+  <nav aria-label="Menu"><a class="ml" href="#sobre">Sobre</a><a class="ml" href="#temas">Atendimento</a><a class="ml" href="#depoimentos">Depoimentos</a><a class="ml" href="#porque">Como funciona</a></nav>
+  <div class="m-foot"><a class="btn" href="#agendar">Quero agendar</a><p>Psicanálise online · Kelly Leite</p></div>
+</div>
 
 <main>
 <section class="hero" id="topo" aria-label="Apresentação">
@@ -517,6 +547,16 @@ html.intro .nav{opacity:0;}
   var nav=document.getElementById('nav'), hero=document.getElementById('topo');
   function onScroll(){ nav.classList.toggle('solid', scrollY > hero.offsetHeight-90); light(); }
   addEventListener('scroll',onScroll,{passive:true});
+  // Menu no celular
+  (function(){
+    var b=document.querySelector('.burger'), m=document.getElementById('mmenu'), r=document.documentElement;
+    if(!b||!m) return;
+    function set(o){ r.classList.toggle('menu-open',o); b.setAttribute('aria-expanded',o); b.setAttribute('aria-label',o?'Fechar menu':'Abrir menu'); m.setAttribute('aria-hidden',!o); }
+    b.addEventListener('click',function(){ set(!r.classList.contains('menu-open')); });
+    m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ set(false); }); });
+    addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+    addEventListener('resize',function(){ if(innerWidth>980) set(false); });
+  })();
 
 
   // Botão principal: partículas e luz da borda seguindo o cursor
