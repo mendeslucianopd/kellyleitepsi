@@ -562,6 +562,16 @@ footer{border-top:1px solid var(--line-2); padding:clamp(48px, 6vw, 80px) 0 28px
 
 @media (max-width:820px){.sev-legend{grid-template-columns:minmax(0,1fr); gap:16px;}}
 .dark .payoff .muted{color:var(--muted);}
+/* Prévia da home: miniatura do site dentro de uma janela de navegador */
+.prevcard{display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"txt go" "shot shot"; align-items:end; row-gap:28px;}
+.prevcard > div{grid-area:txt;} .prevcard .go{grid-area:go; justify-self:end;}
+.pv-shot{grid-area:shot; margin:0; border-radius:8px; overflow:hidden; background:#1C1C1C; box-shadow:0 0 0 1px #2C2C2C, 0 24px 60px -30px rgba(0,0,0,.8); transition:transform .5s var(--ease);}
+.pv-bar{display:flex; align-items:center; gap:6px; padding:10px 14px; background:#232323; border-bottom:1px solid #2C2C2C;}
+.pv-bar i{width:9px; height:9px; border-radius:50%; background:#3A3A3A;}
+.pv-bar b{margin-left:10px; font-weight:400; font-size:12px; color:#8F8F8F; background:#1A1A1A; padding:3px 12px; border-radius:999px;}
+.pv-shot img{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; object-position:top;}
+.prevcard:hover .pv-shot{transform:translateY(-4px);}
+@media (max-width:640px){.prevcard{grid-template-columns:minmax(0,1fr); grid-template-areas:"txt" "shot" "go"; row-gap:22px;} .prevcard .go{justify-self:start;} .pv-bar b{font-size:11px;}}
 /* Comparação no celular: cada linha vira um cartão, com rótulos acima de cada coluna */
 @media (max-width:720px){
   .tbl{overflow:visible;}
@@ -819,6 +829,7 @@ footer{border-top:1px solid var(--line-2); padding:clamp(48px, 6vw, 80px) 0 28px
         <p>A página inicial com a história dela, como funciona, os depoimentos e a agenda da primeira conversa.</p>
       </div>
       <span class="go" aria-hidden="true">Abrir a prévia ↗</span>
+      <figure class="pv-shot" aria-hidden="true"><span class="pv-bar"><i></i><i></i><i></i><b>kellyleite.com.br</b></span><img src="../img/previa_home.jpg" alt="" loading="lazy"></figure>
     </a>
   </div>
 </section>
