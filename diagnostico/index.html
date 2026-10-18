@@ -572,6 +572,42 @@ footer{border-top:1px solid var(--line-2); padding:clamp(48px, 6vw, 80px) 0 28px
 .pv-shot img{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; object-position:top;}
 .prevcard:hover .pv-shot{transform:translateY(-4px);}
 @media (max-width:640px){.prevcard{grid-template-columns:minmax(0,1fr); grid-template-areas:"txt" "shot" "go"; row-gap:22px;} .prevcard .go{justify-self:start;} .pv-bar b{font-size:11px;}}
+
+/* CTA final: mesmo cartão da prévia da home */
+.lk-sec{padding-block:clamp(56px,7vw,110px);}
+.lock-card{margin:0 auto; width:100%; max-width:560px; padding:clamp(26px,3.6vw,44px); border-radius:4px; background:#111; color:#fff; font-family:"Inter", ui-sans-serif, system-ui, sans-serif; letter-spacing:-.011em; box-shadow:0 30px 70px -24px rgba(17,17,17,.55);}
+.lk-top{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding-bottom:18px; margin-bottom:26px; border-bottom:1px solid #2C2C2C;}
+.lock-logo{height:35px; width:auto;}
+.lk-eb{display:flex; align-items:center; gap:8px; font-size:13px; color:#A8A8A8;}
+.lk-eb i{width:7px; height:7px; border-radius:50%; background:#009BDB;}
+.lock-h{font-family:"Inter", ui-sans-serif, system-ui, sans-serif; font-size:clamp(28px,3.2vw,42px); line-height:1.04; letter-spacing:-.05em; font-weight:500; margin:0 0 16px;}
+.lock-card p{color:#C9C9C9; font-size:16px; line-height:1.55; margin:0 0 12px;}
+.lk-list{list-style:none; margin:22px 0 26px; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:6px;}
+.lk-list li{display:flex; flex-direction:column; align-items:flex-start; gap:14px; background:#1C1C1C; border-radius:4px; padding:16px 14px 18px; font-size:14px; line-height:1.3; font-weight:500; letter-spacing:-.02em; transition:background .3s;}
+.lk-list li:hover{background:#242424;}
+.lk-ic{width:40px; height:40px; border-radius:50%; background:rgba(0,155,219,.16); color:#33B8EA; display:grid; place-items:center; flex:none;}
+.lk-ic svg{width:22px; height:22px; overflow:visible;}
+/* 1: linhas do documento se escrevendo */
+.i1 .ln{stroke-dasharray:6; stroke-dashoffset:6; animation:lkWrite 3.6s var(--ease) infinite;}
+.i1 .l2{animation-delay:.25s;} .i1 .l3{animation-delay:.5s;}
+@keyframes lkWrite{0%,8%{stroke-dashoffset:6;} 35%,78%{stroke-dashoffset:0;} 100%{stroke-dashoffset:-6;}}
+/* 2: gráfico subindo */
+.i2 .up{stroke-dasharray:24; stroke-dashoffset:24; animation:lkRise 3.6s var(--ease) infinite .3s;}
+.i2 .hd{opacity:0; animation:lkHead 3.6s var(--ease) infinite .3s;}
+@keyframes lkRise{0%,6%{stroke-dashoffset:24;} 40%,80%{stroke-dashoffset:0;} 100%{stroke-dashoffset:0; opacity:0;}}
+@keyframes lkHead{0%,30%{opacity:0; transform:translate(-3px,3px);} 42%,80%{opacity:1; transform:none;} 100%{opacity:0;}}
+/* 3: anel respirando e check */
+.i3 .ring{transform-origin:12px 12px; animation:lkBreath 3.6s ease-in-out infinite .6s;}
+.i3 .ck{stroke-dasharray:12; stroke-dashoffset:12; animation:lkCheck 3.6s var(--ease) infinite .6s;}
+@keyframes lkBreath{0%,100%{transform:scale(1); opacity:.55;} 45%{transform:scale(1.08); opacity:1;}}
+@keyframes lkCheck{0%,12%{stroke-dashoffset:12;} 40%,82%{stroke-dashoffset:0;} 100%{stroke-dashoffset:-12;}}
+@media (max-width:520px){.lk-list{grid-template-columns:1fr;} .lk-list li{flex-direction:row; align-items:center; padding:12px 14px;} .lk-ic{width:36px; height:36px;}}
+.lock-btn{display:inline-flex; align-items:center; justify-content:center; gap:12px; width:100%; padding:18px 26px; border-radius:999px; background:#009BDB; color:#111; font-size:16px; font-weight:500; letter-spacing:-.02em; text-decoration:none; transition:background .3s, transform .4s var(--ease);}
+.lock-btn svg{width:18px; height:18px; transition:transform .4s var(--ease);}
+.lock-btn:hover{background:#00AEF5; transform:translateY(-2px);}
+.lock-btn:hover svg{transform:translateX(4px);}
+.lk-slogan{margin:18px 0 0 !important; text-align:center; font-size:14px !important; color:#8F8F8F !important; letter-spacing:-.01em;}
+.lock-btn:focus-visible{outline:2px solid #33B8EA; outline-offset:3px;}
 /* Comparação no celular: cada linha vira um cartão, com rótulos acima de cada coluna */
 @media (max-width:720px){
   .tbl{overflow:visible;}
@@ -865,6 +901,17 @@ footer{border-top:1px solid var(--line-2); padding:clamp(48px, 6vw, 80px) 0 28px
     </div>
     <div class="cta-photo rv d1"><img src="../img/retrato_c.jpg" alt="Retrato de Kelly Leite em preto e branco" loading="lazy" style="object-position:center 30%;"></div>
   </div>
+</section>
+
+<section class="lk-sec" id="conversa">
+  <div class="wrap"><div class="rv"><div class="lock-card">
+  <div class="lk-top"><img class="lock-logo" src="../img/cianoland.png" alt="cianoland"></div>
+  <h2 class="lock-h">Gostou? Isso é só o começo.</h2>
+  <p>O projeto completo transforma quem procura psicanálise online em paciente com horário marcado. Numa reunião rápida, a cianoland mostra a proposta inteira e onde o seu digital pode render mais agenda.</p>
+  <ul class="lk-list"><li class="i1"><span class="lk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path class="ln l1" d="M10 11h5"/><path class="ln l2" d="M10 14.5h5"/><path class="ln l3" d="M10 18h3"/></svg></span><span>Proposta completa do projeto</span></li><li class="i2"><span class="lk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16" opacity=".45"/><path class="up" d="M4 16l5-5 3.5 3.5L20 7"/><path class="hd" d="M15 7h5v5"/></svg></span><span>Plano de posicionamento digital</span></li><li class="i3"><span class="lk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="8.5"/><path class="ck" d="M8 12.3l2.7 2.7L16 9.7"/></svg></span><span>Sem compromisso</span></li></ul>
+  <a class="lock-btn" href="https://wa.link/ymnrx6" target="_blank" rel="noopener"><span>Conhecer a cianoland</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <p class="lk-slogan">Você cuida do negócio. A gente cuida do digital.</p>
+</div></div></div>
 </section>
 </main>
 
